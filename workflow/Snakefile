@@ -1,0 +1,12 @@
+configfile: "config/config.yaml"
+
+include: "rules/common.smk"
+include: "rules/merge_fastq.smk"
+include: "rules/run_paired_tag.smk"
+include: "rules/merge_bam.smk"
+
+
+rule all:
+    input:
+        expand(SAMPLE_USEFUL_BAM, sample=SAMPLES),
+        expand(EXPERIMENT_OUTPUT_BAM, exp=EXPS)

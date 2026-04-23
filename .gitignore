@@ -1,0 +1,10 @@
+logs/
+*.csv
+*.tsv
+config/*.sh
+.ipynb_checkpoints/
+.snakemake/
+.DS_Store
+results/
+work/
+
