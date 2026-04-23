@@ -67,7 +67,6 @@ def log_path(filename):
 
 samples = pd.read_csv(project_path(config["samples"]), sep="\t").fillna("")
 experiments = pd.read_csv(project_path(config["experiments"]), encoding="utf-8-sig")
-experiments = experiments[(experiments["proj"].str.contains("skin"))]
 
 SAMPLE_TO_R1 = samples.groupby("sample")["R1"].apply(list).to_dict()
 SAMPLE_TO_R2 = samples.groupby("sample")["R2"].apply(list).to_dict()
