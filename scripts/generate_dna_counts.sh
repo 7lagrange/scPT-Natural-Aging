@@ -87,6 +87,15 @@ for histone in "${histones[@]}"; do
       -o "$matrix_name" \
       --thread "$THREADS"
 
+    # counts in K9me3 common peaks
+    bash "$PIPELINE_DIR/bam2mtx.sh" \
+      -n "${tissue}-${histone}-H3K9me3_zhuojie" \
+      -g /storage/zhangyanxiaoLab/qihongjian/github/zhanglab-code/projects/paired_seq_tag/code/zhuojie/H3K9me3_young_old_merge-W5000-G10000-E100_recursion.bed  \
+      -i "$merged_bam" \
+      -l DNA \
+      -o "${tissue}-${histone}-H3K9me3_zhuojie" \
+      --thread $THREADS
+    
     rm -f "$merged_bam" "${merged_bam}.bai" "${matrix_name}/CountMatrix.txt"
     echo "[INFO] Done: $tissue - $histone"
   done
