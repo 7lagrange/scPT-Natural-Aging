@@ -96,7 +96,7 @@ for histone in "${histones[@]}"; do
       -o "${tissue}-${histone}-H3K9me3_zhuojie" \
       --thread $THREADS
     
-    rm -f "$merged_bam" "${merged_bam}.bai" "${matrix_name}/CountMatrix.txt"
+    rm -f "$merged_bam" "${merged_bam}.bai" "${matrix_name}_CountMatrix.txt"
     echo "[INFO] Done: $tissue - $histone"
   done
 done

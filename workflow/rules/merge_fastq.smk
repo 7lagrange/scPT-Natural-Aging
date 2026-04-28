@@ -19,10 +19,10 @@ rule merge_fastq:
         rm -f {output.r1} {output.r2} {output.cmd}
 
         # save commands for reproducibility
-        echo "zcat {input.r1} | gzip > {output.r1}" >  {output.cmd}
-        echo "zcat {input.r2} | gzip > {output.r2}" >> {output.cmd}
+        echo "zcat {input.r1} | awk '{{if(NR%4==1) {{sub(\"/1\", \"\"); print \$0}} else print \$0}}' | gzip > {output.r1}" >  {output.cmd}
+        echo "zcat {input.r2} | awk '{{if(NR%4==1) {{sub(\"/2\", \"\"); print \$0}} else print \$0}}' | gzip > {output.r2}" >> {output.cmd}
 
         # merge (space-separated expansion handles multiple input files)
-        zcat {input.r1} | gzip > {output.r1}
-        zcat {input.r2} | gzip > {output.r2}
+        zcat {input.r1} | awk '{{if(NR%4==1) {{sub("/1", ""); print $0}} else print $0}}' | gzip > {output.r1}
+        zcat {input.r2} | awk '{{if(NR%4==1) {{sub("/2", ""); print $0}} else print $0}}' | gzip > {output.r2}
         """
