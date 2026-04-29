@@ -22,15 +22,9 @@ rule run_paired_tag:
         mkdir -p $(dirname {log})
         cd {params.workdir}
 
-        if [ "{params.seq_type}" == "T7" ]; then
-            bash ~/github/Paired-Tag-Pipeline/pipelines/pipeline_PT-T7.sh \
+        bash ~/github/Paired-Tag-Pipeline/pipelines/pipeline_PT.sh \
                 -g {params.species} -l {params.library} -p 4 \
                 2>&1 | tee {log}
-        else
-            bash ~/github/Paired-Tag-Pipeline/pipelines/pipeline_PT.sh \
-                -g {params.species} -l {params.library} -p 4 \
-                2>&1 | tee {log}
-        fi
 
         # Remove large intermediate files
         rm -f bw/*.bw
