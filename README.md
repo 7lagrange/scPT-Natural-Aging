@@ -88,11 +88,7 @@ Per-sample BAM:
 {pipeline_base}/{sample}/merge/{sample}/bam/{sample}_UsefulReads.bam
 ```
 
-With the current config, `pipeline_base` is:
-
-```bash
-/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/xx_pipeline
-```
+Set `pipeline_base` in `config/config.yaml`.
 
 ### Per-experiment outputs
 
@@ -102,11 +98,7 @@ Merged RNA BAM:
 {merge_base}/{exp}/rna_bam/RNA_final.bam
 ```
 
-With the current config, `merge_base` is:
-
-```bash
-/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/merge
-```
+Set `merge_base` in `config/config.yaml`.
 
 ## Run
 
