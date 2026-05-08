@@ -123,6 +123,15 @@ df_region_count <- df_merged %>%
   ) %>%
   arrange(desc(n_sig_total))
 
+region_negative_df <- df_region_count %>% filter(n_sig_down >= 10) %>%  filter(n_sig_up < 10) 
+region_negative_df$gene <- sub("^(chr[0-9XY]+)-([0-9]+)-([0-9]+)$", "\\1:\\2-\\3", region_negative_df$gene)
+write.csv(region_negative_df, "/storage/zhangyanxiaoLab/qihongjian/github/scPT-Natural-Aging/results/H3K9me3_common_down_peaks.csv", row.names = FALSE)
+
+region_positive_df <- df_region_count %>% filter(n_sig_up >= 10) %>%  filter(n_sig_down < 10) 
+region_positive_df$gene <- sub("^(chr[0-9XY]+)-([0-9]+)-([0-9]+)$", "\\1:\\2-\\3", region_positive_df$gene)
+write.csv(region_positive_df, "/storage/zhangyanxiaoLab/qihongjian/github/scPT-Natural-Aging/results/H3K9me3_common_up_peaks.csv", row.names = FALSE)
+
+
 region_negative <- df_region_count %>% filter(n_sig_down >= 10) %>%  filter(n_sig_up < 10)  %>% pull(gene)
 region_positive <- df_region_count %>% filter(n_sig_up >= 10) %>%  filter(n_sig_down < 10)  %>% pull(gene)
 region_mix <- df_region_count %>% filter(n_sig_up < 10) %>%  filter(n_sig_down < 10)  %>% pull(gene)
@@ -189,8 +198,9 @@ p
 
 row_order <- p$tree_row$order
 heatmap_matrix_ordered <- heatmap_matrix[row_order, ]
+rownames(heatmap_matrix_ordered) <- sub("-", ":", rownames(heatmap_matrix_ordered))
 write.csv(heatmap_matrix_ordered,
-          file = "data/H3K9me3_logfc_heatmap_matrix.csv",
+          file = "/storage/zhangyanxiaoLab/qihongjian/github/scPT-Natural-Aging/results/H3K9me3_logfc_zhuojie_peaks.csv",
           quote = FALSE)
 
 

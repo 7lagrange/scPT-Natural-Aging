@@ -42,11 +42,11 @@ def sample_merge_dir(sample):
 
 
 def sample_run_dir(sample):
-    return f"{sample_merge_dir(sample)}/{sample}"
+    return f"{sample_merge_dir(sample)}"
 
 
 def sample_bam_path(sample):
-    return f"{sample_run_dir(sample)}/bam/{sample}_UsefulReads.bam"
+    return f"{sample_run_dir(sample)}/{sample}/bam/{sample}_UsefulReads.bam"
 
 
 def experiment_output_bam_path(exp):
