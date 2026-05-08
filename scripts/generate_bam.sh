@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# sh generate_bam.sh config/20240808-scPT-Natural-Aging-liver-H3K4me1-H3K4me3.sh
+# sh generate_bam.sh config/20240808-scPT-Natural-Aging-liver-H3K4me1-H3K4me3.sh /path/to/xx_pipeline /path/to/merge
  
 CONFIG_FILE="$1"
+PIPELINE_BASE="$2"
+MERGE_BASE="$3"
+
 source "$CONFIG_FILE"
 
-cd /storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/merge/$proj
+cd "$MERGE_BASE/$proj"
 
 ################################################ RNA part ###########################
 rm -r rna_bam
@@ -19,7 +22,7 @@ do
     echo $pair
     dna=$(echo "$pair" | cut -d "_" -f 1)
     rna=$(echo "$pair" | cut -d "_" -f 2)
-    rna_bam="/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/xx_pipeline/$rna/$depth/$rna/bam/${rna}_UsefulReads.bam"
+    rna_bam="$PIPELINE_BASE/$rna/$depth/$rna/bam/${rna}_UsefulReads.bam"
 
     bc_counts="../qc/${dna}_${rna}_bc_counts.txt"
     awk -v dna_min_reads=$dna_min_reads -v rna_min_reads=$rna_min_reads 'NR == 1 || ($2 >= dna_min_reads && $3 >= rna_min_reads)' $bc_counts > filtered_bc.txt
@@ -55,7 +58,7 @@ do
     dna=$(echo "$pair" | cut -d "_" -f 1)
     rna=$(echo "$pair" | cut -d "_" -f 2)
 
-    dna_bam="/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/xx_pipeline/$dna/$depth/$dna/bam/${dna}_UsefulReads.bam"
+    dna_bam="$PIPELINE_BASE/$dna/$depth/$dna/bam/${dna}_UsefulReads.bam"
   
     # filter cells dna: 300 rna: 300 
     bc_counts="../qc/${dna}_${rna}_bc_counts.txt"
@@ -105,4 +108,3 @@ for bam_name in *bam; do
     
     rm -f tmp.library_CB.txt library_CB_counts.txt
 done
-

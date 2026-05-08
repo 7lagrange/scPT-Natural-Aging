@@ -8,14 +8,8 @@ from snakemake.exceptions import WorkflowError
 WORKFLOW_DIR = Path(workflow.basedir).resolve()
 PROJECT_ROOT = WORKFLOW_DIR.parent
 
-PIPELINE_BASE = config.get(
-    "pipeline_base",
-    "/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/xx_pipeline",
-)
-MERGE_BASE = config.get(
-    "merge_base",
-    "/storage/zhangyanxiaoLab/qihongjian/projects/paired_seq_tag/data/merge",
-)
+PIPELINE_BASE = config["pipeline_base"]
+MERGE_BASE = config["merge_base"]
 
 
 def project_path(path_str):

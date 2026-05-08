@@ -5,7 +5,9 @@ rule merge_bam:
     output:
         bam=EXPERIMENT_OUTPUT_BAM
     params:
-        outdir=EXPERIMENT_OUTPUT_DIR
+        outdir=EXPERIMENT_OUTPUT_DIR,
+        pipeline_base=PIPELINE_BASE,
+        merge_base=MERGE_BASE
     conda:
         "scDNA"
     log:
@@ -15,5 +17,5 @@ rule merge_bam:
         set -euo pipefail
         mkdir -p {params.outdir}/rna_bam
         mkdir -p $(dirname {log})
-        bash scripts/generate_bam.sh {input.config} 2>&1 | tee {log}
+        bash scripts/generate_bam.sh {input.config} {params.pipeline_base} {params.merge_base} 2>&1 | tee {log}
         """
